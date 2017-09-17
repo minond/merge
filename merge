@@ -1,0 +1,33 @@
+#!/bin/bash
+
+#=== FUNCTION =================================================================
+#        NAME: merge
+#     EXAMPLE: merge "hi {{first_name}}" --first_name=Marcos
+# DESCRIPTION: give it a template string and a list of variables and it will
+#              return a string with the merged content
+# PARAMETER 1: string with merge fields (eg. "{{greeting}}, World")
+#      FLAG *: key/value pairs of variables and values (eg. --greeting=hi)
+#==============================================================================
+merge() {
+    local contents="$1"
+
+    local field=
+    local label=
+    local value=
+
+    shift
+
+    while [ "$1" != "" ]; do
+        field=(${1//=/ })
+        value=${field[1]}
+
+        label=${field[0]}
+        label=${label:2}
+        label="{{$label}}"
+
+        contents=$(sed "s/$label/$value/g" <<< "$contents")
+        shift
+    done
+
+    echo "$contents"
+}

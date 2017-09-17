@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#=== FUNCTION =================================================================
+#        NAME: render
+#     EXAMPLE: render assets/welcome.html --first_name=Marcos
+# DESCRIPTION: gets a file's content and merged it with parameters using
+#              the `merge` function
+# PARAMETER 1: path to file with merge fields (eg. "{{greeting}}, World")
+#      FLAG *: key/value pairs of variables and values (eg. --greeting=hi)
+#==============================================================================
+render() {
+    local contents=$(cat "$1")
+    shift
+    merge "$contents" "$@"
+}
