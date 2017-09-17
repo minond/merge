@@ -9,7 +9,8 @@
 #      FLAG *: key/value pairs of variables and values (eg. --greeting=hi)
 #==============================================================================
 render() {
-    local contents=$(cat "$1")
+    local contents=
+    contents=$(cat "$1")
     shift
     merge "$contents" "$@"
 }
